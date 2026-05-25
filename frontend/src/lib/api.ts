@@ -1,4 +1,12 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+function getApiUrl(): string {
+  if (typeof window !== 'undefined' && window.location.hostname.includes('github.dev')) {
+    // В GitHub Codespaces: меняем порт 3000 → 8000 в текущем URL
+    return window.location.origin.replace('-3000.', '-8000.');
+  }
+  return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+}
+
+const API_URL = getApiUrl();
 
 function getToken(): string | null {
   if (typeof window !== 'undefined') {

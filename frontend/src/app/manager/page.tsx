@@ -57,7 +57,8 @@ export default function ManagerPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/manager/dashboard`, {
+    const apiUrl = typeof window !== 'undefined' && window.location.hostname.includes('github.dev') ? window.location.origin.replace('-3000.', '-8000.') : (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000');
+    fetch(`${apiUrl}/api/v1/manager/dashboard`, {
       headers: {
         'Content-Type': 'application/json',
         ...(user ? { 'x-user-id': user.id } : {}),

@@ -51,7 +51,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [isLoading, user, pathname, router]);
 
   const login = async (email: string) => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/auth/login?email=${encodeURIComponent(email)}`, {
+    const apiUrl = typeof window !== 'undefined' && window.location.hostname.includes('github.dev') ? window.location.origin.replace('-3000.', '-8000.') : (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000');
+    const res = await fetch(`${apiUrl}/api/v1/auth/login?email=${encodeURIComponent(email)}`, {
       method: 'POST',
     });
     if (!res.ok) throw new Error('Login failed');
@@ -64,7 +65,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const loginAsGuest = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/auth/guest`, {
+    const apiUrl = typeof window !== 'undefined' && window.location.hostname.includes('github.dev') ? window.location.origin.replace('-3000.', '-8000.') : (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000');
+    const res = await fetch(`${apiUrl}/api/v1/auth/guest`, {
       method: 'POST',
     });
     if (!res.ok) throw new Error('Guest login failed');
