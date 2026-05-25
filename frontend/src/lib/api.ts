@@ -17,6 +17,7 @@ function getToken(): string | null {
 
 async function fetcher<T>(path: string, options?: RequestInit): Promise<T> {
   const token = getToken();
+  console.log('[API] Fetching:', `${API_URL}${path}`);
   const res = await fetch(`${API_URL}${path}`, {
     ...options,
     headers: {
