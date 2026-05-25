@@ -10,11 +10,11 @@ app = FastAPI(
     version="1.0.0",
 )
 
-origins = os.getenv("CORS_ORIGINS", "*").split(",")
+# Разрешаем все origins для Codespaces / local dev
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
